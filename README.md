@@ -11,10 +11,12 @@ A bash script to have a simple promodoro timer TUI that can be paused and skippe
 
 ## Usage
 
-1. Clone the repo and move into it
+1. Clone the repo move into it and copy the script to `~/.local/bin/`
 
 ```bash
-git clone https://github.com/trgr-boi/promodoro-tui.sh && cd promodoro-tui
+git clone https://github.com/trgr-boi/promodoro-tui.sh && \
+cd promodoro-tui && \
+cp promodoro-tui.sh ~/.local/bin/promodoro-tui
 ```
 
 2. Copy script to `~/.local/bin/`
