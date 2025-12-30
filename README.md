@@ -19,13 +19,7 @@ cd promodoro-tui && \
 cp promodoro-tui.sh ~/.local/bin/promodoro-tui
 ```
 
-2. Copy script to `~/.local/bin/`
-
-```bash
-cp promodoro-tui.sh ~/.local/bin/promodoro-tui
-```
-
-3. Use with:
+2. Use with:
 
 ```bash
 promodoro-tui
