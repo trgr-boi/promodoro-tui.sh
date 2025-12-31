@@ -18,10 +18,17 @@ TIME_LONG_BREAK=900
 
 CYCLE=0
 
-# --- CURSOR MANAGEMENT ---
+# =======================
+# CURSOR MANAGEMENT
+# =======================
+
 hide_cursor() { printf "\033[?25l"; }
 show_cursor() { printf "\033[?25h"; }
 trap "show_cursor; exit" INT TERM EXIT
+
+# =======================
+# Progress bar
+# =======================
 
 draw_bar() {
     local current=$1
@@ -40,6 +47,10 @@ draw_bar() {
     
     printf -- "[%s%s] %d%%" "$filled_chars" "$empty_chars" "$percentage"
 }
+
+# =======================
+# Main timer view
+# =======================
 
 run_timer() {
     local TOTAL_S=$1
@@ -107,6 +118,10 @@ run_timer() {
     done
 }
 
+# =======================
+# "next" menu
+# =======================
+
 prompt_next() {
     local type=$1
     show_cursor
@@ -121,18 +136,35 @@ prompt_next() {
     esac
 }
 
+# =======================
+# dunstify Notification
+# =======================
+
+notify() {
+    dunstify -u normal "Promodoro" "${1}"
+}
+
+# =======================
+# Main loop
+# =======================
+
 while true; do
     ((CYCLE++))
-    dunstify -u normal "Pomodoro" "Focus Session Starting"
+    notify "Focus Session Starting"
     run_timer $TIME_FOCUS "FOCUS MODE" "2" 
+    notify "Focus Session Finished!"
 
     if ((CYCLE % 4 == 0)); then
         if prompt_next "Long Break"; then
+            notify "Long Break Starting"
             run_timer $TIME_LONG_BREAK "LONG BREAK" "4"
+            notify "Long Break is over"
         fi
     else
         if prompt_next "Short Break"; then
+            notify "Short Break Starting"
             run_timer $TIME_SHORT_BREAK "SHORT BREAK" "6"
+            notify "Short Break is over"
         fi
     fi
 done
